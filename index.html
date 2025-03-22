@@ -22,14 +22,11 @@
             min-height: 100vh;
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 100px 20px;
             color: white;
             background: linear-gradient(135deg, rgba(0, 48, 135, 0.9), rgba(255, 255, 255, 0.5));
-            position: relative;
-            overflow: hidden;
         }
 
         header h1 {
@@ -46,22 +43,21 @@
             font-weight: 400;
         }
 
-        /* Main Section */
-        .main-section {
+        .main-section, .shayari-section, .game-section {
             max-width: 1100px;
             margin: 50px auto;
             padding: 0 20px;
             text-align: center;
         }
 
-        .main-section h2 {
+        .main-section h2, .shayari-section h2, .game-section h2 {
             font-size: 2.5em;
             color: #003087;
             margin-bottom: 40px;
             position: relative;
         }
 
-        .main-section h2::after {
+        .main-section h2::after, .shayari-section h2::after, .game-section h2::after {
             content: '';
             width: 100px;
             height: 4px;
@@ -73,7 +69,6 @@
             border-radius: 2px;
         }
 
-        /* Card Container */
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -112,7 +107,6 @@
             color: #555;
         }
 
-        /* Quote Section */
         .quote-section {
             background: #fff;
             padding: 60px 20px;
@@ -135,33 +129,6 @@
             font-weight: 600;
         }
 
-        /* Shayari Section */
-        .shayari-section {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .shayari-section h2 {
-            font-size: 2.5em;
-            color: #003087;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .shayari-section h2::after {
-            content: '';
-            width: 100px;
-            height: 4px;
-            background: #ff6b6b;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
         .shayari {
             background: white;
             padding: 30px;
@@ -181,38 +148,46 @@
             line-height: 1.8;
         }
 
-        /* Game Section */
-        .game-section {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .game-section h2 {
-            font-size: 2.5em;
-            color: #003087;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .game-section h2::after {
-            content: '';
-            width: 100px;
-            height: 4px;
-            background: #ff6b6b;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        #gameCanvas {
-            border: 2px solid #003087;
-            background: #f0f0f0;
-            border-radius: 10px;
+        .game-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .game-grid {
+            display: grid;
+            gap: 10px;
+            margin: 20px auto;
+        }
+
+        .game-card {
+            width: 80px;
+            height: 80px;
+            background: #003087;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            color: white;
+            font-size: 2em;
+        }
+
+        .game-card:hover {
+            transform: scale(1.1);
+        }
+
+        .game-card.revealed {
+            background: #fff;
+            color: #003087;
+        }
+
+        .game-card.matched {
+            background: #ff6b6b;
+            color: white;
         }
 
         #gameStatus {
@@ -221,7 +196,6 @@
             margin-top: 20px;
         }
 
-        /* Footer */
         footer {
             background: #003087;
             color: white;
@@ -243,47 +217,23 @@
             text-decoration: underline;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-
-            header p {
-                font-size: 1.2em;
-            }
-
-            .main-section h2, .shayari-section h2, .game-section h2 {
-                font-size: 2em;
-            }
-
-            .card h3 {
-                font-size: 1.5em;
-            }
-
-            .quote-section p {
-                font-size: 1.4em;
-            }
-
-            .shayari p {
-                font-size: 1.2em;
-            }
-
-            #gameCanvas {
-                width: 100%;
-                height: 300px;
-            }
+            header h1 { font-size: 2.5em; }
+            header p { font-size: 1.2em; }
+            .main-section h2, .shayari-section h2, .game-section h2 { font-size: 2em; }
+            .card h3 { font-size: 1.5em; }
+            .quote-section p { font-size: 1.4em; }
+            .shayari p { font-size: 1.2em; }
+            .game-card { width: 60px; height: 60px; font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <h1>Salute to Gyan Chand Bhaskar</h1>
         <p>A Proud Head Constable of Delhi Police</p>
     </header>
 
-    <!-- Main Section -->
     <section class="main-section">
         <h2>About Gyan Chand Bhaskar</h2>
         <div class="card-container">
@@ -305,202 +255,117 @@
         </div>
     </section>
 
-    <!-- Quote Section -->
     <section class="quote-section">
         <p>"Service before self – a motto Gyan Chand Bhaskar lives by every day."</p>
         <span class="signature">- A Gift from Your Little Brother, Manish Bhaskar</span>
     </section>
 
-    <!-- Shayari Section -->
     <section class="shayari-section">
         <h2>Shayari for My Hero</h2>
         <div class="shayari">
-            <p>
-                "Himmat se kadam chalta hai aage,<br>
-                Delhi ki suraksha hai inke saath lage,<br>
-                Gyan Chand Bhaskar, ek naam hai pyara,<br>
-                Family ko proud hai inpe sara."
-            </p>
+            <p>"Himmat se kadam chalta hai aage,<br>Delhi ki suraksha hai inke saath lage,<br>Gyan Chand Bhaskar, ek naam hai pyara,<br>Family ko proud hai inpe sara."</p>
         </div>
         <div class="shayari">
-            <p>
-                "Dil mein junoon, aankhon mein sapna,<br>
-                Duty ke liye hai inka jeevan apna,<br>
-                Bhaiya tum ho hamari shaan,<br>
-                Har pal tumse judi hai pehchaan."
-            </p>
+            <p>"Dil mein junoon, aankhon mein sapna,<br>Duty ke liye hai inka jeevan apna,<br>Bhaiya tum ho hamari shaan,<br>Har pal tumse judi hai pehchaan."</p>
         </div>
         <div class="shayari">
-            <p>
-                "Police ki vardi mein chamak hai alag,<br>
-                Gyan Bhaiya ke jaisa na koi talab,<br>
-                Desh ki khidmat, parivar ka pyar,<br>
-                Tum ho hamare liye ek sitara vichar."
-            </p>
+            <p>"Police ki vardi mein chamak hai alag,<br>Gyan Bhaiya ke jaisa na koi talab,<br>Desh ki khidmat, parivar ka pyar,<br>Tum ho hamare liye ek sitara vichar."</p>
         </div>
     </section>
 
-    <!-- Game Section -->
     <section class="game-section">
-        <h2>Police Chase Challenge</h2>
-        <canvas id="gameCanvas" width="800" height="400"></canvas>
-        <p id="gameStatus">Use Arrow Keys or WASD to Play! Catch the Criminals!</p>
+        <h2>Crime Scene Puzzle</h2>
+        <div class="game-container">
+            <div class="game-grid" id="gameGrid"></div>
+        </div>
+        <p id="gameStatus">Level 1: Match the Clues!</p>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>Contact Gyan Chand Bhaskar: <a href="tel:+918882018844">+91 88820 18844</a></p>
         <p>Made with ❤️ for Gyan Chand Bhaskar | Hosted on <a href="https://github.com" target="_blank">GitHub</a></p>
     </footer>
 
-    <!-- JavaScript for Game -->
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+        const gameGrid = document.getElementById('gameGrid');
         const gameStatus = document.getElementById('gameStatus');
+        const clues = [
+            '🔫', '🔍', '🖐️', '🔗', '📷', '🚨', '📜', '👣', // Crime-related emojis
+        ];
+        let currentLevel = 1;
+        let gridSize = 4; // Start with 4x4
+        let cards = [];
+        let revealedCards = [];
+        let matchedPairs = 0;
 
-        let player = {
-            x: 50,
-            y: canvas.height - 50,
-            width: 40,
-            height: 40,
-            speed: 5,
-            dy: 0,
-            jumping: false
-        };
-
-        let criminal = {
-            x: canvas.width - 100,
-            y: canvas.height - 50,
-            width: 40,
-            height: 40,
-            speed: 3
-        };
-
-        let score = 0;
-        let level = 1;
-        let gravity = 0.5;
-        let gameActive = true;
-        let obstacles = [];
-
-        const keys = {
-            left: false,
-            right: false,
-            up: false
-        };
-
-        // Event Listeners for Controls
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
-            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
-            if (e.key === 'ArrowUp' || e.key === 'w') {
-                if (!player.jumping) {
-                    player.dy = -10;
-                    player.jumping = true;
-                }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-        });
-
-        document.addEventListener('keyup', (e) => {
-            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
-            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
-        });
-
-        // Spawn Obstacles
-        function spawnObstacle() {
-            obstacles.push({
-                x: canvas.width,
-                y: canvas.height - 30,
-                width: 30,
-                height: 30,
-                speed: criminal.speed + level
-            });
+            return array;
         }
 
-        // Game Loop
-        function updateGame() {
-            if (!gameActive) return;
+        function startLevel() {
+            gameGrid.innerHTML = '';
+            cards = [];
+            revealedCards = [];
+            matchedPairs = 0;
+            const levelClues = clues.slice(0, (gridSize * gridSize) / 2);
+            cards = [...levelClues, ...levelClues]; // Duplicate for pairs
+            cards = shuffle(cards);
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Player Movement
-            if (keys.left && player.x > 0) player.x -= player.speed;
-            if (keys.right && player.x < canvas.width - player.width) player.x += player.speed;
-
-            // Gravity and Jumping
-            player.dy += gravity;
-            player.y += player.dy;
-            if (player.y > canvas.height - player.height) {
-                player.y = canvas.height - player.height;
-                player.dy = 0;
-                player.jumping = false;
-            }
-
-            // Criminal Movement
-            criminal.x -= criminal.speed;
-            if (criminal.x < -criminal.width) {
-                criminal.x = canvas.width;
-                score += 10;
-                if (score % 100 === 0) {
-                    level++;
-                    criminal.speed += 1;
-                    player.speed += 0.5;
-                }
-            }
-
-            // Obstacles Movement
-            obstacles.forEach((obstacle, index) => {
-                obstacle.x -= obstacle.speed;
-                if (obstacle.x < -obstacle.width) obstacles.splice(index, 1);
+            gameGrid.style.gridTemplateColumns = `repeat(${gridSize}, 80px)`;
+            cards.forEach((clue, index) => {
+                const card = document.createElement('div');
+                card.classList.add('game-card');
+                card.dataset.clue = clue;
+                card.textContent = '?';
+                card.addEventListener('click', () => handleCardClick(card));
+                gameGrid.appendChild(card);
             });
 
-            // Collision Detection
-            if (
-                player.x < criminal.x + criminal.width &&
-                player.x + player.width > criminal.x &&
-                player.y < criminal.y + criminal.height &&
-                player.y + player.height > criminal.y
-            ) {
-                score += 20;
-                criminal.x = canvas.width;
-            }
-
-            obstacles.forEach(obstacle => {
-                if (
-                    player.x < obstacle.x + obstacle.width &&
-                    player.x + player.width > obstacle.x &&
-                    player.y < obstacle.y + obstacle.height &&
-                    player.y + player.height > obstacle.y
-                ) {
-                    gameActive = false;
-                    gameStatus.textContent = `Game Over! Score: ${score} | Level: ${level} | Press F5 to Restart`;
-                }
-            });
-
-            // Draw Player (Police)
-            ctx.fillStyle = '#003087';
-            ctx.fillRect(player.x, player.y, player.width, player.height);
-
-            // Draw Criminal
-            ctx.fillStyle = '#ff6b6b';
-            ctx.fillRect(criminal.x, criminal.y, criminal.width, criminal.height);
-
-            // Draw Obstacles
-            ctx.fillStyle = '#666';
-            obstacles.forEach(obstacle => {
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
-
-            // Update Status
-            gameStatus.textContent = `Score: ${score} | Level: ${level} | Catch the Criminals!`;
-
-            // Spawn Obstacles Randomly
-            if (Math.random() < 0.02 * level) spawnObstacle();
-
-            requestAnimationFrame(updateGame);
+            gameStatus.textContent = `Level ${currentLevel}: Match the Clues!`;
         }
 
-        updateGame();
+        function handleCardClick(card) {
+            if (revealedCards.length < 2 && !card.classList.contains('revealed') && !card.classList.contains('matched')) {
+                card.classList.add('revealed');
+                card.textContent = card.dataset.clue;
+                revealedCards.push(card);
+
+                if (revealedCards.length === 2) {
+                    const [card1, card2] = revealedCards;
+                    if (card1.dataset.clue === card2.dataset.clue) {
+                        card1.classList.add('matched');
+                        card2.classList.add('matched');
+                        matchedPairs++;
+                        if (matchedPairs === cards.length / 2) {
+                            setTimeout(() => {
+                                currentLevel++;
+                                gridSize = currentLevel === 2 ? 5 : currentLevel === 3 ? 6 : gridSize;
+                                if (currentLevel > 3) {
+                                    gameStatus.textContent = 'Congratulations! You Solved All Levels!';
+                                } else {
+                                    startLevel();
+                                }
+                            }, 1000);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            card1.classList.remove('revealed');
+                            card2.classList.remove('revealed');
+                            card1.textContent = '?';
+                            card2.textContent = '?';
+                        }, 1000);
+                    }
+                    revealedCards = [];
+                }
+            }
+        }
+
+        // Start the game
+        startLevel();
     </script>
 </body>
 </html>
