@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salute to Gyan Chand Bhaskar - A Delhi Police Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #003087, #ffffff);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 100px 20px;
+            color: white;
+            background: linear-gradient(135deg, rgba(0, 48, 135, 0.9), rgba(255, 255, 255, 0.5));
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 1.5em;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+
+        /* Main Section */
+        .main-section {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .main-section h2 {
+            font-size: 2.5em;
+            color: #003087;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .main-section h2::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: #ff6b6b;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Card Container */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card i {
+            font-size: 3em;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.8em;
+            color: #003087;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: #fff;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 50px 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-section p {
+            font-size: 1.8em;
+            font-style: italic;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .quote-section .signature {
+            font-size: 1.2em;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        /* Shayari Section */
+        .shayari-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .shayari-section h2 {
+            font-size: 2.5em;
+            color: #003087;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .shayari-section h2::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: #ff6b6b;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .shayari {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+
+        .shayari:hover {
+            transform: translateY(-10px);
+        }
+
+        .shayari p {
+            font-size: 1.4em;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        /* Game Section */
+        .game-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .game-section h2 {
+            font-size: 2.5em;
+            color: #003087;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .game-section h2::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: #ff6b6b;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        #gameCanvas {
+            border: 2px solid #003087;
+            background: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #gameStatus {
+            font-size: 1.5em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #003087;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            font-size: 1.2em;
+        }
+
+        footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header p {
+                font-size: 1.2em;
+            }
+
+            .main-section h2, .shayari-section h2, .game-section h2 {
+                font-size: 2em;
+            }
+
+            .card h3 {
+                font-size: 1.5em;
+            }
+
+            .quote-section p {
+                font-size: 1.4em;
+            }
+
+            .shayari p {
+                font-size: 1.2em;
+            }
+
+            #gameCanvas {
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Salute to Gyan Chand Bhaskar</h1>
+        <p>A Proud Head Constable of Delhi Police</p>
+    </header>
+
+    <!-- Main Section -->
+    <section class="main-section">
+        <h2>About Gyan Chand Bhaskar</h2>
+        <div class="card-container">
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Dedicated Service</h3>
+                <p>Gyan Chand Bhaskar has served Delhi Police with unwavering dedication, ensuring the safety of citizens.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-star"></i>
+                <h3>Head Constable</h3>
+                <p>A respected officer, leading with courage and integrity in every duty assigned.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-heart"></i>
+                <h3>Inspiration</h3>
+                <p>A big brother and a hero whose commitment inspires us all every day.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <p>"Service before self – a motto Gyan Chand Bhaskar lives by every day."</p>
+        <span class="signature">- A Gift from Your Little Brother, Manish Bhaskar</span>
+    </section>
+
+    <!-- Shayari Section -->
+    <section class="shayari-section">
+        <h2>Shayari for My Hero</h2>
+        <div class="shayari">
+            <p>
+                "Himmat se kadam chalta hai aage,<br>
+                Delhi ki suraksha hai inke saath lage,<br>
+                Gyan Chand Bhaskar, ek naam hai pyara,<br>
+                Family ko proud hai inpe sara."
+            </p>
+        </div>
+        <div class="shayari">
+            <p>
+                "Dil mein junoon, aankhon mein sapna,<br>
+                Duty ke liye hai inka jeevan apna,<br>
+                Bhaiya tum ho hamari shaan,<br>
+                Har pal tumse judi hai pehchaan."
+            </p>
+        </div>
+        <div class="shayari">
+            <p>
+                "Police ki vardi mein chamak hai alag,<br>
+                Gyan Bhaiya ke jaisa na koi talab,<br>
+                Desh ki khidmat, parivar ka pyar,<br>
+                Tum ho hamare liye ek sitara vichar."
+            </p>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section class="game-section">
+        <h2>Police Chase Challenge</h2>
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        <p id="gameStatus">Use Arrow Keys or WASD to Play! Catch the Criminals!</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Contact Gyan Chand Bhaskar: <a href="tel:+918882018844">+91 88820 18844</a></p>
+        <p>Made with ❤️ for Gyan Chand Bhaskar | Hosted on <a href="https://github.com" target="_blank">GitHub</a></p>
+    </footer>
+
+    <!-- JavaScript for Game -->
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameStatus = document.getElementById('gameStatus');
+
+        let player = {
+            x: 50,
+            y: canvas.height - 50,
+            width: 40,
+            height: 40,
+            speed: 5,
+            dy: 0,
+            jumping: false
+        };
+
+        let criminal = {
+            x: canvas.width - 100,
+            y: canvas.height - 50,
+            width: 40,
+            height: 40,
+            speed: 3
+        };
+
+        let score = 0;
+        let level = 1;
+        let gravity = 0.5;
+        let gameActive = true;
+        let obstacles = [];
+
+        const keys = {
+            left: false,
+            right: false,
+            up: false
+        };
+
+        // Event Listeners for Controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+            if (e.key === 'ArrowUp' || e.key === 'w') {
+                if (!player.jumping) {
+                    player.dy = -10;
+                    player.jumping = true;
+                }
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+        });
+
+        // Spawn Obstacles
+        function spawnObstacle() {
+            obstacles.push({
+                x: canvas.width,
+                y: canvas.height - 30,
+                width: 30,
+                height: 30,
+                speed: criminal.speed + level
+            });
+        }
+
+        // Game Loop
+        function updateGame() {
+            if (!gameActive) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Player Movement
+            if (keys.left && player.x > 0) player.x -= player.speed;
+            if (keys.right && player.x < canvas.width - player.width) player.x += player.speed;
+
+            // Gravity and Jumping
+            player.dy += gravity;
+            player.y += player.dy;
+            if (player.y > canvas.height - player.height) {
+                player.y = canvas.height - player.height;
+                player.dy = 0;
+                player.jumping = false;
+            }
+
+            // Criminal Movement
+            criminal.x -= criminal.speed;
+            if (criminal.x < -criminal.width) {
+                criminal.x = canvas.width;
+                score += 10;
+                if (score % 100 === 0) {
+                    level++;
+                    criminal.speed += 1;
+                    player.speed += 0.5;
+                }
+            }
+
+            // Obstacles Movement
+            obstacles.forEach((obstacle, index) => {
+                obstacle.x -= obstacle.speed;
+                if (obstacle.x < -obstacle.width) obstacles.splice(index, 1);
+            });
+
+            // Collision Detection
+            if (
+                player.x < criminal.x + criminal.width &&
+                player.x + player.width > criminal.x &&
+                player.y < criminal.y + criminal.height &&
+                player.y + player.height > criminal.y
+            ) {
+                score += 20;
+                criminal.x = canvas.width;
+            }
+
+            obstacles.forEach(obstacle => {
+                if (
+                    player.x < obstacle.x + obstacle.width &&
+                    player.x + player.width > obstacle.x &&
+                    player.y < obstacle.y + obstacle.height &&
+                    player.y + player.height > obstacle.y
+                ) {
+                    gameActive = false;
+                    gameStatus.textContent = `Game Over! Score: ${score} | Level: ${level} | Press F5 to Restart`;
+                }
+            });
+
+            // Draw Player (Police)
+            ctx.fillStyle = '#003087';
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+
+            // Draw Criminal
+            ctx.fillStyle = '#ff6b6b';
+            ctx.fillRect(criminal.x, criminal.y, criminal.width, criminal.height);
+
+            // Draw Obstacles
+            ctx.fillStyle = '#666';
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+
+            // Update Status
+            gameStatus.textContent = `Score: ${score} | Level: ${level} | Catch the Criminals!`;
+
+            // Spawn Obstacles Randomly
+            if (Math.random() < 0.02 * level) spawnObstacle();
+
+            requestAnimationFrame(updateGame);
+        }
+
+        updateGame();
+    </script>
+</body>
+</html>
