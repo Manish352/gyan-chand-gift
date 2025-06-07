@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SSM Panel - Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f2f2f2; }
+    header { background: #222; color: white; padding: 15px; text-align: center; }
+    nav { background: #333; padding: 10px; display: flex; justify-content: space-around; color: white; }
+    nav a { color: white; text-decoration: none; }
+    .container { padding: 20px; }
+    .card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    input, select { width: 100%; padding: 10px; margin-top: 8px; margin-bottom: 20px; }
+    button, .pay-btn { padding: 10px 20px; background: #007bff; border: none; color: white; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to Your SMM Panel</h1>
+</header>
+
+<nav>
+  <a href="#">Dashboard</a>
+  <a href="#">New Order</a>
+  <a href="#">Order History</a>
+  <a class="pay-btn" href="https://rzp.io/rzp/CBOFKn4" target="_blank">Add Funds 💰</a>
+  <a href="#">Logout</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Place New Order</h2>
+    <label for="service">Select Service ID:</label>
+    <input type="text" id="service" placeholder="Eg: 101 (YouTube Views)"/>
+
+    <label for="link">Enter Link:</label>
+    <input type="text" id="link" placeholder="https://..."/>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" placeholder="1000"/>
+
+    <button onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <div class="card">
+    <h2>Recent Orders</h2>
+    <table>
+      <tr>
+        <th>Order ID</th>
+        <th>Service</th>
+        <th>Link</th>
+        <th>Quantity</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>12345</td>
+        <td>101</td>
+        <td>https://youtube.com/xyz</td>
+        <td>1000</td>
+        <td>Completed</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+  function submitOrder() {
+    const service = document.getElementById('service').value;
+    const link = document.getElementById('link').value;
+    const quantity = document.getElementById('quantity').value;
+
+    if (!link || !quantity || !service) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    const API_KEY = "4685d74413df8d36232c719bcb3bf219";
+    const API_URL = "https://worldofsmm.com/api/v2";
+
+    const payload = {
+      key: API_KEY,
+      action: "add",
+      service: service,
+      link: link,
+      quantity: quantity
+    };
+
+    fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("API Response:", data);
+      if (data.order) {
+        alert(`✅ Order Placed Successfully!\nOrder ID: ${data.order}`);
+      } else if (data.error) {
+        alert(`❌ Error: ${data.error}`);
+      } else {
+        alert("❌ Unknown error occurred.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("❌ Failed to connect to the API.");
+    });
+  }
+</script>
+
+</body>
+</html>
